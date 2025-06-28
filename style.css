@@ -78,9 +78,9 @@ h2 {
   display: none !important;
 }
 
-/* Style the main Leaflet Search button */
-.leaflet-control-search .search-button {
-  background-image: url('./search_icon.png');
+/* Main search button (magnifying glass icon) */
+.leaflet-control-search a.search-button {
+  background-image: url('search_icon.png');
   background-size: 60% 60%;
   background-repeat: no-repeat;
   background-position: center;
@@ -91,19 +91,23 @@ h2 {
   height: 28px;
   cursor: pointer;
   padding: 0;
+  display: inline-block;
+  text-indent: -9999px; /* hides any fallback text */
 }
 
-/* Style the "cancel" (collapse) button too */
-.leaflet-control-search .search-cancel {
-  background-color: white;
-  background-image: url('./cancel_search_icon.png');
+/* Cancel (X) button */
+.leaflet-control-search a.search-cancel {
+  background-image: url('cancel_search_icon.png');
   background-size: 60% 60%;
   background-repeat: no-repeat;
   background-position: center;
-  width: 20px;
-  height: 20px;
+  background-color: white;
   border: 1px solid #ccc;
   border-radius: 4px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
   margin-left: 4px;
+  display: inline-block;
+  text-indent: -9999px;
 }
