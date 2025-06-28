@@ -1,7 +1,7 @@
-// Global variable to hold the highlighted region
+// Global variable to hold the highlighted region polygon
 let highlightedRegion = null;
 
-// Function to search for and highlight a geographic region
+// Function to search for and highlight a geographic region using Nominatim
 function highlightRegion(regionName) {
   const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(regionName)}&format=json&polygon_geojson=1`;
 
@@ -13,12 +13,12 @@ function highlightRegion(regionName) {
         return;
       }
 
-      // Remove previous region if one exists
+      // Remove previous highlighted region if it exists
       if (highlightedRegion) {
         map.removeLayer(highlightedRegion);
       }
 
-      // Draw new region polygon
+      // Draw new region polygon with style
       highlightedRegion = L.geoJSON(data[0].geojson, {
         style: {
           color: 'orange',
@@ -28,6 +28,7 @@ function highlightRegion(regionName) {
         }
       }).addTo(map);
 
+      // Zoom map to fit the new highlighted region
       map.fitBounds(highlightedRegion.getBounds());
     })
     .catch(error => {
@@ -36,19 +37,19 @@ function highlightRegion(regionName) {
     });
 }
 
+// Function to trigger highlightRegion from input box
 function highlightRegionFromInput() {
-  const input = document.getElementById("region-search-input");
+  const input = document.getElementById("region-search");
   if (input && input.value.trim() !== "") {
     highlightRegion(input.value.trim());
   }
 }
 
-
-// Initialize the map
-const map = L.map("map").setView([18.032617, -39.341946], 2); // Centered on Earth
+// Initialize the Leaflet map
+const map = L.map("map").setView([18.032617, -39.341946], 2); // Center of Earth
 const markerLayer = L.layerGroup().addTo(map);
 
-// Define the OpenStreetMap tile layer (default)
+// Define base layers
 const openStreetMapLayer = L.tileLayer(
   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
   {
@@ -57,7 +58,6 @@ const openStreetMapLayer = L.tileLayer(
   }
 );
 
-// Define the Satellite layer (Esri World Imagery with labels)
 const satelliteLayer = L.tileLayer(
   "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
   {
@@ -65,10 +65,10 @@ const satelliteLayer = L.tileLayer(
   }
 );
 
-// Add the default OpenStreetMap layer to the map
+// Add default base layer
 openStreetMapLayer.addTo(map);
 
-// Add a layer control to toggle between OpenStreetMap and Satellite with labels
+// Add layer switcher control
 L.control
   .layers({
     "Street Map": openStreetMapLayer,
@@ -76,63 +76,61 @@ L.control
   })
   .addTo(map);
 
-// Fetch the local CSV file from Glitch
-const csvFilePath = "./Ski Resort List.csv"; // Local path to the CSV file in the Glitch project
+// Load ski resorts from CSV and add markers + table rows
+const csvFilePath = "./Ski Resort List.csv"; // Adjust path as needed
 
 Papa.parse(csvFilePath, {
   download: true,
   header: true,
   skipEmptyLines: true,
   complete: function (results) {
-    const data = results.data; // Parsed CSV data
-    console.log(data); // Debugging
-
-    // Reference the table body
+    const data = results.data;
     const tableBody = document.querySelector("#resorts-table tbody");
 
-    // Loop through each ski resort and add it to the map and the table
     data.forEach((resort, index) => {
       const { Resort, Location, Country, Latitude, Longitude } = resort;
 
-      // Add to the map if lat/lng are valid numbers
       if (!isNaN(Latitude) && !isNaN(Longitude)) {
         const marker = L.marker([parseFloat(Latitude), parseFloat(Longitude)], {
-          title: Resort  // This is key!
+          title: Resort, // Important for search plugin
         })
           .bindTooltip(`<strong>${Resort}</strong><br>${Location}, ${Country}`, {
             permanent: false,
             direction: "top",
           });
-
         marker.addTo(markerLayer);
       }
 
-      // Add table row
       const row = document.createElement("tr");
       row.innerHTML = `
-    <td>${index + 1}</td>
-    <td>${Resort}</td>
-    <td>${Location}</td>
-    <td>${Country}</td>
-  `;
+        <td>${index + 1}</td>
+        <td>${Resort}</td>
+        <td>${Location}</td>
+        <td>${Country}</td>
+      `;
       tableBody.appendChild(row);
     });
 
-    // 1. Local ski resorts search control
+    // Add the Leaflet Search control for ski resorts
     L.control.search({
       layer: markerLayer,
+      propertyName: 'title', // Using marker option 'title' for search
       initial: false,
       zoom: 10,
       hideMarkerOnCollapse: true,
       textPlaceholder: 'Search ski resorts...',
       marker: false
     }).addTo(map);
-
-    map.on('search:locationfound', function () {
-      map.dragging.enable();
-    });
   },
   error: function (error) {
     console.error("Error loading CSV:", error);
   },
+});
+
+// Wire up search input & button to highlight region on click or Enter key
+document.getElementById("region-search-btn").addEventListener("click", highlightRegionFromInput);
+document.getElementById("region-search").addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    highlightRegionFromInput();
+  }
 });
