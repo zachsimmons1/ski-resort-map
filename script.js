@@ -75,10 +75,28 @@ Papa.parse(csvFilePath, {
     L.control
       .search({
         layer: markerLayer,
-        propertyName: "resortName",
         zoom: 10,
         initial: false,
         hideMarkerOnCollapse: true,
+        textPlaceholder: 'Search resorts...',
+        marker: false,
+        moveToLocation: function (latlng, title, map) {
+          map.setView(latlng, 10); // Zoom to marker when found
+        },
+        buildTip: function (text, val) {
+          return `<span>${text}</span>`;
+        },
+        sourceData: function (text, callback) {
+          // Create searchable list of markers
+          const results = {};
+          markerLayer.eachLayer(function (layer) {
+            const name = layer.getTooltip().getContent().split("<br>")[0].replace(/<[^>]+>/g, ""); // Clean HTML
+            if (name.toLowerCase().includes(text.toLowerCase())) {
+              results[name] = layer.getLatLng();
+            }
+          });
+          callback(results);
+        },
       })
       .addTo(map);
 
