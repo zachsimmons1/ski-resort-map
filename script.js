@@ -131,7 +131,11 @@ Papa.parse(csvFilePath, {
       zoom: 10,
       hideMarkerOnCollapse: true,
       textPlaceholder: 'Search ski resorts...',
-      marker: false
+      marker: false,
+      moveToLocation: function (latlng, title, map) {
+        // Prevent Leaflet Search from trying to remove non-existent marker
+        map.setView(latlng, 10);
+      }
     }).addTo(map);
 
     // Enable dragging on events
