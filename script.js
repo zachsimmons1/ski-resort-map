@@ -100,7 +100,8 @@ Papa.parse(csvFilePath, {
       .addTo(map);
 
     // 2. Global geocoder search (Nominatim)
-    L.Control.Geocoder({
+    L.Control.geocoder({
+      geocoder: L.Control.Geocoder.nominatim(),
       defaultMarkGeocode: false,
       placeholder: 'Search any place on Earth...'
     })
