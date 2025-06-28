@@ -51,11 +51,12 @@ Papa.parse(csvFilePath, {
       // Add to the map if lat/lng are valid numbers
       if (!isNaN(Latitude) && !isNaN(Longitude)) {
         const marker = L.marker([parseFloat(Latitude), parseFloat(Longitude)], {
-          resortName: Resort, // <-- This puts it in options
-        }).bindTooltip(`<strong>${Resort}</strong><br>${Location}, ${Country}`, {
-          permanent: false,
-          direction: "top",
-        });
+          title: Resort  // This is key!
+        })
+          .bindTooltip(`<strong>${Resort}</strong><br>${Location}, ${Country}`, {
+            permanent: false,
+            direction: "top",
+          });
 
         marker.addTo(markerLayer);
       }
@@ -78,23 +79,7 @@ Papa.parse(csvFilePath, {
       zoom: 10,
       hideMarkerOnCollapse: true,
       textPlaceholder: 'Search ski resorts...',
-      marker: false,
-
-      // Prevent default GeoJSON behavior
-      propertyName: '',
-
-      // Tell it where to find the name and coordinates
-      getLocation: function (layer) {
-        return {
-          title: layer.resortName,
-          loc: layer.getLatLng()
-        };
-      },
-
-      // Optional: zoom to location when selected
-      moveToLocation: function (latlng, title, map) {
-        map.setView(latlng, 10);
-      }
+      marker: false
     }).addTo(map);
 
     // 2. Global geocoder search (Nominatim)
