@@ -1,6 +1,4 @@
-/* a minimalist set of CSS resets */
-
-/* default to border-box */
+/* Minimalist CSS reset and base styles */
 html {
   box-sizing: border-box;
   font-size: 16px;
@@ -12,53 +10,52 @@ html {
   box-sizing: inherit;
 }
 
-/* adjust typography defaults */
 body {
-  margin: 0; /* Remove default margin */
+  margin: 0;
   font-family: sans-serif;
   line-height: 1.5;
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 100vh; /* Full viewport height */
-  flex-direction: column; /* Allow stacking of content */
-  text-align: center; /* Optional: to center any other content */
-}
-
-h1 {
-  margin-bottom: 20px; /* Space between the title and the map */
-  font-size: 1.5rem;
-}
-
-/* Center the map container */
-#map {
-  height: 600px; /* Set map height */
-  width: 95%; /* Set map width (you can adjust as needed) */
-  max-width: 1200px; /* Optional: Max width */
-  margin: 0 auto; /* Ensures the map is centered horizontally */
-}
-
-/* Center the table */
-#resorts-table-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-#resorts-table {
-  width: 80%;
-  border-collapse: collapse;
   text-align: center;
 }
 
-/* Add padding to table cells */
-#resorts-table th,
-#resorts-table td {
-  padding: 15px; /* Adjust padding as needed */
-  border: 1px solid #cccccc;
+/* Headings */
+h1 {
+  margin: 2rem 0 1rem;
+  font-size: 2rem;
 }
 
-/* Styling for table header */
+h2 {
+  margin-top: 2rem;
+}
+
+/* Center the map */
+#map {
+  height: 600px;
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Center the table container */
+#resorts-table-container {
+  width: fit-content;
+  margin: 2rem auto;
+}
+
+/* Style the table */
+#resorts-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#resorts-table th,
+#resorts-table td {
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+}
+
 #resorts-table th {
   background-color: #f4f4f4;
   font-weight: bold;
