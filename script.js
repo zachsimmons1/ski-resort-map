@@ -75,8 +75,9 @@ const esriRoads = L.tileLayer(
   }
 );
 
-// === Combine satellite + overlays into one group layer (can add esriRoads, but it's a bit much) ===
+// === Combine satellite + overlays into one group layer (adding roads as separate layer b/c it's ugly) ===
 const satelliteWithLabelsAndPOIs = L.layerGroup([esriImagery, esriLabels]);
+const satelliteWithLabelsAndPOIsAndRoads = L.layerGroup([esriImagery, esriLabels, esriRoads]);
 
 // === Optional fallback: OpenStreetMap base map ===
 const openStreetMapLayer = L.tileLayer(
@@ -86,15 +87,15 @@ const openStreetMapLayer = L.tileLayer(
   }
 );
 
-// === Add the default base layer to the map ===
 satelliteWithLabelsAndPOIs.addTo(map);
 
 // === Add layer control to toggle between base maps ===
 L.control
   .layers(
     {
-      'Satellite + Labels + Roads': satelliteWithLabelsAndPOIs,
-      'Street Map (OSM)': openStreetMapLayer
+      'Satellite + Labels': satelliteWithLabelsAndPOIs,
+      'Street Map (OSM)': openStreetMapLayer,
+      'Satellite + Labels + Roads': satelliteWithLabelsAndPOIsAndRoads
     }
   )
   .addTo(map);
