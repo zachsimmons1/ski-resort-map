@@ -1,0 +1,70 @@
+Resort,Location,Country,Lat_Long,Latitude,Longitude
+Cooper Spur, Oregon, United States,"45.412129, -121.605344",45.412129,-121.605344
+Meadows,Oregon,United States,"45.331567, -121.664810",45.331567,-121.66481
+Mt. Bachelor,Oregon,United States,"43.996673, -121.665805",43.996673,-121.665805
+Skibowl,Oregon,United States,"45.297696, -121.756587",45.297696,-121.756587
+Timberline,Oregon,United States,"45.330777, -121.709637",45.330777,-121.709637
+Crystal Mountain,Washington,United States,"46.934855, -121.474770",46.934855,-121.47477
+Mission Ridge,Washington,United States,"47.291583, -120.399220",47.291583,-120.39922
+Mt. Spokane,Washington,United States,"47.915409, -117.099385",47.915409,-117.099385
+Stevens Pass,Washington,United States,"47.744191, -121.090804",47.744191,-121.090804
+White Pass,Washington,United States,"46.637088, -121.390913",46.637088,-121.390913
+Schweitzer,Idaho,United States,"48.367916, -116.623206",48.367916,-116.623206
+Sun Valley,Idaho,United States,"43.683110, -114.401973",43.68311,-114.401973
+Alpine Meadows,California,United States,"39.163776, -120.238341",39.163776,-120.238341
+Mammoth Mountain,California,United States,"37.650416, -119.037997",37.650416,-119.037997
+Northstar,California,United States,"39.274846, -120.120977",39.274846,-120.120977
+Palisades Tahoe,California,United States,"39.195586, -120.234794",39.195586,-120.234794
+Jackson Hole,Wyoming,United States,"43.589095, -110.827996",43.589095,-110.827996
+Snow King,Wyoming,United States,"43.471808, -110.760632",43.471808,-110.760632
+Alta,Utah,United States,"40.588486, -111.637800",40.588486,-111.6378
+Deer Valley,Utah,United States,"40.637161, -111.479228",40.637161,-111.479228
+Park City,Utah,United States,"40.653747, -111.509792",40.653747,-111.509792
+Snowbird,Utah,United States,"40.581059, -111.655981",40.581059,-111.655981
+Copper,Colorado,United States,"39.498927, -106.146370",39.498927,-106.14637
+Loveland,Colorado,United States,"39.685183, -105.883515",39.685183,-105.883515
+Big Sky,Montana,United States,"45.283344, -111.401466",45.283344,-111.401466
+Burke,Vermont,United States,"44.583797, -71.902442",44.583797,-71.902442
+Killington,Vermont,United States,"43.616441, -72.803134",43.616441,-72.803134
+Middlebury Snowbowl,Vermont,United States,"43.938862, -72.957946",43.938862,-72.957946
+Smuggler's Notch,Vermont,United States,"44.571401, -72.777227",44.571401,-72.777227
+Stowe,Vermont,United States,"44.531293, -72.780819",44.531293,-72.780819
+Stratton,Vermont,United States,"43.112995, -72.907058",43.112995,-72.907058
+Sugarbush,Vermont,United States,"44.177344, -72.903538",44.177344,-72.903538
+Sunday River,Maine,United States,"44.469718, -70.862359",44.469718,-70.862359
+Sugarloaf,Maine,United States,"45.053241, -70.309094",45.053241,-70.309094
+Dartmouth Skiway,New Hampshire,United States,"43.788669, -72.099437",43.788669,-72.099437
+Cranmore,New Hampshire,United States,"44.056421, -71.109401",44.056421,-71.109401
+Gunstock,New Hampshire,United States,"43.541587, -71.369612",43.541587,-71.369612
+Loon,New Hampshire,United States,"44.055129, -71.634703",44.055129,-71.634703
+Mittersill,New Hampshire,United States,"44.179118, -71.711784",44.179118,-71.711784
+Pat's Peak,New Hampshire,United States,"43.162182, -71.796372",43.162182,-71.796372
+Proctor Academy,New Hampshire,United States,"43.430677, -71.826572",43.430677,-71.826572
+Ragged,New Hampshire,United States,"43.484376, -71.842737",43.484376,-71.842737
+Sunapee,New Hampshire,United States,"43.330405, -72.079902",43.330405,-72.079902
+Waterville,New Hampshire,United States,"43.965212, -71.528830",43.965212,-71.52883
+Blue Hills,Massachusetts,United States,"42.215137, -71.119048",42.215137,-71.119048
+Jiminy Peak,Massachusetts,United States,"42.554328, -73.289195",42.554328,-73.289195
+Gore,New York,United States,"43.673861, -74.007502",43.673861,-74.007502
+West Mountain,New York,United States,"43.285631, -73.725749",43.285631,-73.725749
+Whiteface,New York,United States,"44.353328, -73.862916",44.353328,-73.862916
+Lake Louise,Alberta,Canada,"51.442614, -116.161186",51.442614,-116.161186
+Nakiska,Alberta,Canada,"50.942852, -115.152526",50.942852,-115.152526
+Norquay,Alberta,Canada,"51.208300, -115.601895",51.2083,-115.601895
+Big White,British Columbia,Canada,"49.716993, -118.932780",49.716993,-118.93278
+Panorama,British Columbia,Canada,"50.456488, -116.237810",50.456488,-116.23781
+Red Mountain,British Columbia,Canada,"49.102064, -117.820629",49.102064,-117.820629
+Sun Peaks,British Columbia,Canada,"50.884712, -119.887176",50.884712,-119.887176
+Whistler,British Columbia,Canada,"50.113055, -122.952836",50.113055,-122.952836
+Whitewater,British Columbia,Canada,"49.443459, -117.145823",49.443459,-117.145823
+Devil's Glen,Ontario,Canada,"44.353471, -80.200903",44.353471,-80.200903
+Camp Fortune,Quebec,Canada,"45.511655, -75.836097",45.511655,-75.836097
+Mont Ste-Marie,Quebec,Canada,"45.947502, -75.870261",45.947502,-75.870261
+Stubaier,Austria,Austria,"46.987249, 11.106649",46.987249,11.106649
+Schnalstal,Italy,Italy,"46.769812, 10.798088",46.769812,10.798088
+Stelvio,Italy,Italy,"46.517499, 10.459546",46.517499,10.459546
+Adelboden,Switzerland,Switzerland,"46.492998, 7.557515",46.492998,7.557515
+Saas Fee,Switzerland,Switzerland,"46.105637, 7.927636",46.105637,7.927636
+Zermatt,Switzerland,Switzerland,"45.927076, 7.721863",45.927076,7.721863
+La Parva,Chile,Chile,"-33.331890, -70.283797",-33.33189,-70.283797
+Valle Nevado,Chile,Chile,"-33.352777, -70.248988",-33.352777,-70.248988

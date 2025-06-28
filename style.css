@@ -1,0 +1,65 @@
+/* a minimalist set of CSS resets */
+
+/* default to border-box */
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+/* adjust typography defaults */
+body {
+  margin: 0; /* Remove default margin */
+  font-family: sans-serif;
+  line-height: 1.5;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Full viewport height */
+  flex-direction: column; /* Allow stacking of content */
+  text-align: center; /* Optional: to center any other content */
+}
+
+h1 {
+  margin-bottom: 20px; /* Space between the title and the map */
+  font-size: 1.5rem;
+}
+
+/* Center the map container */
+#map {
+  height: 600px; /* Set map height */
+  width: 95%; /* Set map width (you can adjust as needed) */
+  max-width: 1200px; /* Optional: Max width */
+  margin: 0 auto; /* Ensures the map is centered horizontally */
+}
+
+/* Center the table */
+#resorts-table-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#resorts-table {
+  width: 80%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+/* Add padding to table cells */
+#resorts-table th,
+#resorts-table td {
+  padding: 15px; /* Adjust padding as needed */
+  border: 1px solid #cccccc;
+}
+
+/* Styling for table header */
+#resorts-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
