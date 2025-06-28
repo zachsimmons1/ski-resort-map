@@ -74,17 +74,24 @@ Papa.parse(csvFilePath, {
     // 1. Local ski resorts search control
     L.control.search({
       layer: markerLayer,
-      zoom: 10,
       initial: false,
+      zoom: 10,
       hideMarkerOnCollapse: true,
       textPlaceholder: 'Search ski resorts...',
       marker: false,
+
+      // Prevent default GeoJSON behavior
+      propertyName: '',
+
+      // Tell it where to find the name and coordinates
       getLocation: function (layer) {
         return {
           title: layer.resortName,
           loc: layer.getLatLng()
         };
       },
+
+      // Optional: zoom to location when selected
       moveToLocation: function (latlng, title, map) {
         map.setView(latlng, 10);
       }
