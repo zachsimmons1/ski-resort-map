@@ -82,6 +82,10 @@ Papa.parse(csvFilePath, {
       marker: false
     }).addTo(map);
 
+    map.on('search:locationfound', function () {
+      map.dragging.enable();
+    });
+
     // 2. Global geocoder search (Nominatim)
     L.Control.geocoder({
       geocoder: L.Control.Geocoder.nominatim(),
