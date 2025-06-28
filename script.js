@@ -75,8 +75,8 @@ const esriRoads = L.tileLayer(
   }
 );
 
-// === Combine satellite + overlays into one group layer ===
-const satelliteWithLabelsAndPOIs = L.layerGroup([esriImagery, esriLabels, esriRoads]);
+// === Combine satellite + overlays into one group layer (can add esriRoads, but it's a bit much) ===
+const satelliteWithLabelsAndPOIs = L.layerGroup([esriImagery, esriLabels]);
 
 // === Optional fallback: OpenStreetMap base map ===
 const openStreetMapLayer = L.tileLayer(
