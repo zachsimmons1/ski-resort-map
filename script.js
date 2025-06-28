@@ -1,5 +1,6 @@
 // Initialize the map
 const map = L.map("map").setView([18.032617, -39.341946], 2); // Centered on Earth
+const markerLayer = L.layerGroup().addTo(map);
 
 // Define the OpenStreetMap tile layer (default)
 const openStreetMapLayer = L.tileLayer(
@@ -49,24 +50,38 @@ Papa.parse(csvFilePath, {
 
       // Add to the map if lat/lng are valid numbers
       if (!isNaN(Latitude) && !isNaN(Longitude)) {
-        L.marker([parseFloat(Latitude), parseFloat(Longitude)])
-          .addTo(map)
-          .bindTooltip(
-            `<strong>${Resort}</strong><br>${Location}, ${Country}`,
-            { permanent: false, direction: "top" } // Tooltip appears on hover
-          );
+        const marker = L.marker([parseFloat(Latitude), parseFloat(Longitude)])
+          .bindTooltip(`<strong>${Resort}</strong><br>${Location}, ${Country}`, {
+            permanent: false,
+            direction: "top",
+          });
+
+        marker.resortName = Resort; // Used by the search control
+        marker.addTo(markerLayer);
       }
 
-      // Create a new row for the table
+      // Add table row
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${Resort}</td>
-        <td>${Location}</td>
-        <td>${Country}</td>
-      `;
+    <td>${index + 1}</td>
+    <td>${Resort}</td>
+    <td>${Location}</td>
+    <td>${Country}</td>
+  `;
       tableBody.appendChild(row);
     });
+
+    // Add search control to the map
+    L.control
+      .search({
+        layer: markerLayer,
+        propertyName: "resortName",
+        zoom: 10,
+        initial: false,
+        hideMarkerOnCollapse: true,
+      })
+      .addTo(map);
+
   },
   error: function (error) {
     console.error("Error loading CSV:", error);
