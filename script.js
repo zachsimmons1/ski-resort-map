@@ -77,30 +77,37 @@ L.control
   .addTo(map);
 
 // Load ski resorts from CSV and add markers + table rows
-const csvFilePath = "./Ski Resort List.csv"; // Adjust path as needed
+const csvFilePath = "./Ski Resort List.csv";
 
 Papa.parse(csvFilePath, {
   download: true,
   header: true,
   skipEmptyLines: true,
   complete: function (results) {
-    const data = results.data;
+    const data = results.data; // Parsed CSV data
+
+    // Reference the table body
     const tableBody = document.querySelector("#resorts-table tbody");
 
+    // Clear any existing markers (if any)
+    markerLayer.clearLayers();
+
+    // Add markers
     data.forEach((resort, index) => {
       const { Resort, Location, Country, Latitude, Longitude } = resort;
 
       if (!isNaN(Latitude) && !isNaN(Longitude)) {
         const marker = L.marker([parseFloat(Latitude), parseFloat(Longitude)], {
-          title: Resort, // Important for search plugin
-        })
-          .bindTooltip(`<strong>${Resort}</strong><br>${Location}, ${Country}`, {
-            permanent: false,
-            direction: "top",
-          });
+          title: Resort
+        }).bindTooltip(`<strong>${Resort}</strong><br>${Location}, ${Country}`, {
+          permanent: false,
+          direction: "top",
+        });
+
         marker.addTo(markerLayer);
       }
 
+      // Add table rows
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>${index + 1}</td>
@@ -111,10 +118,15 @@ Papa.parse(csvFilePath, {
       tableBody.appendChild(row);
     });
 
-    // Add the Leaflet Search control for ski resorts
-    const skiResortSearchControl = L.control.search({
+    // Remove old search control if exists (optional)
+    if (window.skiResortSearchControl) {
+      map.removeControl(window.skiResortSearchControl);
+    }
+
+    // Create search control *after* markers are fully added
+    window.skiResortSearchControl = L.control.search({
       layer: markerLayer,
-      propertyName: 'title', // Using marker option 'title' for search
+      propertyName: 'title',
       initial: false,
       zoom: 10,
       hideMarkerOnCollapse: true,
@@ -122,30 +134,18 @@ Papa.parse(csvFilePath, {
       marker: false
     }).addTo(map);
 
-    // Enable dragging and zoom initially
-    map.dragging.enable();
-    map.scrollWheelZoom.enable();
-
-    skiResortSearchControl.on('search:locationfound', function () {
-      console.log('search:locationfound event fired — enabling dragging and scroll zoom');
+    // Enable dragging on events
+    window.skiResortSearchControl.on('search:locationfound', function () {
       map.dragging.enable();
       map.scrollWheelZoom.enable();
     });
 
-    skiResortSearchControl.on('search:collapsed', function () {
-      console.log('search:collapsed event fired — enabling dragging and scroll zoom');
+    window.skiResortSearchControl.on('search:collapsed', function () {
       map.dragging.enable();
       map.scrollWheelZoom.enable();
     });
 
-    // Optional: disable dragging while search input expanded if needed
-    skiResortSearchControl.on('search:expanded', function () {
-      console.log('search:expanded event fired — disabling dragging and scroll zoom');
-      map.dragging.disable();
-      map.scrollWheelZoom.disable();
-    });
   },
-
   error: function (error) {
     console.error("Error loading CSV:", error);
   },
