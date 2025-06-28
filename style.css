@@ -64,3 +64,10 @@ h2 {
   background-color: #b5d8f6;
   cursor: pointer;
 }
+
+#region-search,
+#region-search-btn {
+  margin: 10px;
+  padding: 6px;
+  font-size: 14px;
+}

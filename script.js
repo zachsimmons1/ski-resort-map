@@ -1,3 +1,49 @@
+// Global variable to hold the highlighted region
+let highlightedRegion = null;
+
+// Function to search for and highlight a geographic region
+function highlightRegion(regionName) {
+  const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(regionName)}&format=json&polygon_geojson=1`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      if (!data || data.length === 0 || !data[0].geojson) {
+        alert('Region not found or does not include geometry.');
+        return;
+      }
+
+      // Remove previous region if one exists
+      if (highlightedRegion) {
+        map.removeLayer(highlightedRegion);
+      }
+
+      // Draw new region polygon
+      highlightedRegion = L.geoJSON(data[0].geojson, {
+        style: {
+          color: 'orange',
+          weight: 2,
+          fillColor: 'orange',
+          fillOpacity: 0.1,
+        }
+      }).addTo(map);
+
+      map.fitBounds(highlightedRegion.getBounds());
+    })
+    .catch(error => {
+      console.error('Error fetching region:', error);
+      alert('There was an error searching for the region.');
+    });
+}
+
+function highlightRegionFromInput() {
+  const input = document.getElementById("region-search-input");
+  if (input && input.value.trim() !== "") {
+    highlightRegion(input.value.trim());
+  }
+}
+
+
 // Initialize the map
 const map = L.map("map").setView([18.032617, -39.341946], 2); // Centered on Earth
 const markerLayer = L.layerGroup().addTo(map);
@@ -85,31 +131,6 @@ Papa.parse(csvFilePath, {
     map.on('search:locationfound', function () {
       map.dragging.enable();
     });
-
-    // 2. Global geocoder search (Nominatim)
-    L.Control.geocoder({
-      geocoder: L.Control.Geocoder.nominatim(),
-      defaultMarkGeocode: false,
-      placeholder: 'Search any place on Earth...'
-    })
-      .on('markgeocode', function (e) {
-        const bbox = e.geocode.bbox;
-        if (bbox) {
-          const poly = L.polygon([
-            bbox.getSouthEast(),
-            bbox.getNorthEast(),
-            bbox.getNorthWest(),
-            bbox.getSouthWest(),
-          ]).addTo(map);
-          map.fitBounds(poly.getBounds());
-          // Optional: remove polygon after a timeout
-          setTimeout(() => map.removeLayer(poly), 5000);
-        } else if (e.geocode.center) {
-          map.setView(e.geocode.center, 12);
-        }
-      })
-      .addTo(map);
-
   },
   error: function (error) {
     console.error("Error loading CSV:", error);
