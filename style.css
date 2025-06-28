@@ -78,15 +78,32 @@ h2 {
   display: none !important;
 }
 
-.leaflet-control-search {
-  background-color: white;
-  background-image: url('https://cdn-icons-png.flaticon.com/512/622/622669.png'); /* magnifying glass icon */
+/* Style the main Leaflet Search button */
+.leaflet-control-search .search-button {
+  background-image: url('https://cdn-icons-png.flaticon.com/512/622/622669.png');
   background-size: 60% 60%;
   background-repeat: no-repeat;
   background-position: center;
+  background-color: white;
   border: 1px solid #ccc;
-  cursor: pointer;
+  border-radius: 4px;
   width: 28px;
   height: 28px;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Style the "cancel" (collapse) button too */
+.leaflet-control-search .search-cancel {
+  background-color: white;
+  background-image: url('https://cdn-icons-png.flaticon.com/512/1828/1828778.png'); /* Optional: a small X icon */
+  background-size: 60% 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
   border-radius: 4px;
+  cursor: pointer;
+  margin-left: 4px;
 }
