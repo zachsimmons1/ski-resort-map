@@ -45,6 +45,13 @@ function highlightRegionFromInput() {
   }
 }
 
+function clearRegionHighlight() {
+  if (highlightedRegion) {
+    map.removeLayer(highlightedRegion);
+    highlightedRegion = null;
+  }
+}
+
 // Initialize the Leaflet map
 const map = L.map("map").setView([18.032617, -39.341946], 2); // Center of Earth
 const markerLayer = L.layerGroup().addTo(map);
@@ -182,6 +189,7 @@ Papa.parse(csvFilePath, {
 
 // Wire up search input & button to highlight region on click or Enter key
 document.getElementById("region-search-btn").addEventListener("click", highlightRegionFromInput);
+document.getElementById("clear-highlight-btn").addEventListener("click", clearRegionHighlight);
 document.getElementById("region-search").addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
     highlightRegionFromInput();
