@@ -72,32 +72,18 @@ Papa.parse(csvFilePath, {
     });
 
     // 1. Local ski resorts search control
-    L.control
-      .search({
-        layer: markerLayer,
-        zoom: 10,
-        initial: false,
-        hideMarkerOnCollapse: true,
-        textPlaceholder: 'Search ski resorts...',
-        marker: false,
-        moveToLocation: function (latlng, title, map) {
-          map.setView(latlng, 10);
-        },
-        sourceData: function (text, callback) {
-          const results = {};
-          markerLayer.eachLayer(function (layer) {
-            const tooltip = layer.getTooltip();
-            if (!tooltip) return;
-            // Extract resort name from tooltip content (strip HTML tags)
-            const name = tooltip.getContent().split("<br>")[0].replace(/<[^>]+>/g, "");
-            if (name.toLowerCase().includes(text.toLowerCase())) {
-              results[name] = layer.getLatLng();
-            }
-          });
-          callback(results);
-        },
-      })
-      .addTo(map);
+    L.control.search({
+      layer: markerLayer,
+      propertyName: 'resortName', // This is your custom property
+      initial: false,
+      zoom: 10,
+      hideMarkerOnCollapse: true,
+      textPlaceholder: 'Search ski resorts...',
+      marker: false,
+      moveToLocation: function (latlng, title, map) {
+        map.setView(latlng, 10);
+      },
+    }).addTo(map);
 
     // 2. Global geocoder search (Nominatim)
     L.Control.geocoder({
