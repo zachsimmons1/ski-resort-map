@@ -50,13 +50,13 @@ Papa.parse(csvFilePath, {
 
       // Add to the map if lat/lng are valid numbers
       if (!isNaN(Latitude) && !isNaN(Longitude)) {
-        const marker = L.marker([parseFloat(Latitude), parseFloat(Longitude)])
-          .bindTooltip(`<strong>${Resort}</strong><br>${Location}, ${Country}`, {
-            permanent: false,
-            direction: "top",
-          });
+        const marker = L.marker([parseFloat(Latitude), parseFloat(Longitude)], {
+          resortName: Resort, // <-- This puts it in options
+        }).bindTooltip(`<strong>${Resort}</strong><br>${Location}, ${Country}`, {
+          permanent: false,
+          direction: "top",
+        });
 
-        marker.resortName = Resort; // Used by the search control
         marker.addTo(markerLayer);
       }
 
