@@ -180,41 +180,6 @@ Papa.parse(csvFilePath, {
   },
 });
 
-
-// Autocomplete setup for region search input
-const searchInput = document.getElementById("region-search");
-const suggestionsList = document.getElementById("region-suggestions");
-
-let debounceTimer;
-
-searchInput.addEventListener("input", () => {
-  clearTimeout(debounceTimer);
-
-  const query = searchInput.value.trim();
-  if (query.length < 3) {
-    suggestionsList.innerHTML = ""; // Clear suggestions if too short
-    return;
-  }
-
-  debounceTimer = setTimeout(() => {
-    fetch(`https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=5&q=${encodeURIComponent(query)}`)
-      .then(response => response.json())
-      .then(results => {
-        suggestionsList.innerHTML = ""; // Clear old suggestions
-
-        results.forEach(place => {
-          const option = document.createElement("option");
-          option.value = place.display_name;
-          suggestionsList.appendChild(option);
-        });
-      })
-      .catch(err => {
-        console.error("Autocomplete error:", err);
-      });
-  }, 300); // debounce delay
-});
-
-
 // Wire up search input & button to highlight region on click or Enter key
 document.getElementById("region-search-btn").addEventListener("click", highlightRegionFromInput);
 document.getElementById("region-search").addEventListener("keypress", function (event) {
