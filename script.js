@@ -49,32 +49,56 @@ function highlightRegionFromInput() {
 const map = L.map("map").setView([18.032617, -39.341946], 2); // Center of Earth
 const markerLayer = L.layerGroup().addTo(map);
 
-// Define base layers
+// === Esri World Imagery (Satellite) ===
+const esriImagery = L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  {
+    attribution: '&copy; Esri & contributors'
+  }
+);
+
+// === Esri Labels Overlay (city, country names in English) ===
+const esriLabels = L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+  {
+    attribution: '',
+    pane: 'overlayPane'
+  }
+);
+
+// === Esri Roads Overlay (highways, streets, etc.) ===
+const esriRoads = L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}',
+  {
+    attribution: '',
+    pane: 'overlayPane'
+  }
+);
+
+// === Combine satellite + overlays into one group layer ===
+const satelliteWithLabelsAndPOIs = L.layerGroup([esriImagery, esriLabels, esriRoads]);
+
+// === Optional fallback: OpenStreetMap base map ===
 const openStreetMapLayer = L.tileLayer(
-  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    attribution: '&copy; OpenStreetMap contributors'
   }
 );
 
-const satelliteLayer = L.tileLayer(
-  "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-  {
-    attribution: '&copy; <a href="https://www.esri.com/">Esri</a> contributors',
-  }
-);
+// === Add the default base layer to the map ===
+satelliteWithLabelsAndPOIs.addTo(map);
 
-// Add default base layer
-openStreetMapLayer.addTo(map);
-
-// Add layer switcher control
+// === Add layer control to toggle between base maps ===
 L.control
-  .layers({
-    "Street Map": openStreetMapLayer,
-    Satellite: satelliteLayer,
-  })
+  .layers(
+    {
+      'Satellite + Labels + Roads': satelliteWithLabelsAndPOIs,
+      'Street Map (OSM)': openStreetMapLayer
+    }
+  )
   .addTo(map);
+
 
 // Load ski resorts from CSV and add markers + table rows
 const csvFilePath = "./Ski Resort List.csv";
