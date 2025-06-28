@@ -71,3 +71,7 @@ h2 {
   padding: 6px;
   font-size: 14px;
 }
+
+.leaflet-marker-icon.invisible-marker {
+  display: none !important;
+}

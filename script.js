@@ -131,24 +131,24 @@ Papa.parse(csvFilePath, {
       zoom: 10,
       hideMarkerOnCollapse: true,
       textPlaceholder: 'Search ski resorts...',
-      marker: false,
+      marker: {
+        icon: new L.DivIcon({ className: 'invisible-marker' }),
+        animate: false
+      },
       moveToLocation: function (latlng, title, map) {
-        // Prevent Leaflet Search from trying to remove non-existent marker
         map.setView(latlng, 10);
       }
     }).addTo(map);
 
-    // Enable dragging on events
-    window.skiResortSearchControl.on('search:locationfound', function () {
+    // Ensure dragging is re-enabled after search
+    map.on('search:locationfound', function () {
       map.dragging.enable();
       map.scrollWheelZoom.enable();
     });
-
-    window.skiResortSearchControl.on('search:collapsed', function () {
+    map.on('search:collapsed', function () {
       map.dragging.enable();
       map.scrollWheelZoom.enable();
     });
-
   },
   error: function (error) {
     console.error("Error loading CSV:", error);
