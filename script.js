@@ -122,18 +122,27 @@ Papa.parse(csvFilePath, {
       marker: false
     }).addTo(map);
 
-    // Enable map interactions initially
+    // Enable dragging and zoom initially
     map.dragging.enable();
     map.scrollWheelZoom.enable();
 
     skiResortSearchControl.on('search:locationfound', function () {
+      console.log('search:locationfound event fired — enabling dragging and scroll zoom');
       map.dragging.enable();
       map.scrollWheelZoom.enable();
     });
 
     skiResortSearchControl.on('search:collapsed', function () {
+      console.log('search:collapsed event fired — enabling dragging and scroll zoom');
       map.dragging.enable();
       map.scrollWheelZoom.enable();
+    });
+
+    // Optional: disable dragging while search input expanded if needed
+    skiResortSearchControl.on('search:expanded', function () {
+      console.log('search:expanded event fired — disabling dragging and scroll zoom');
+      map.dragging.disable();
+      map.scrollWheelZoom.disable();
     });
   },
 
