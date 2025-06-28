@@ -37,17 +37,16 @@ h2 {
 
 /* Center the table container */
 #resorts-table-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+  text-align: center;
   margin-top: 2rem;
 }
 
-/* Style the table */
 #resorts-table {
+  margin-left: auto;
+  margin-right: auto;
   border-collapse: collapse;
-  width: auto; /* or set a max-width */
   text-align: center;
+  width: auto; /* Or a set width if needed */
 }
 
 #resorts-table th,
