@@ -121,7 +121,16 @@ Papa.parse(csvFilePath, {
       textPlaceholder: 'Search ski resorts...',
       marker: false
     }).addTo(map);
+
+    skiResortSearchControl.on('search:locationfound', function () {
+      map.dragging.enable();
+    });
+
+    skiResortSearchControl.on('search:collapsed', function () {
+      map.dragging.enable();
+    });
   },
+
   error: function (error) {
     console.error("Error loading CSV:", error);
   },
@@ -129,7 +138,7 @@ Papa.parse(csvFilePath, {
 
 // Wire up search input & button to highlight region on click or Enter key
 document.getElementById("region-search-btn").addEventListener("click", highlightRegionFromInput);
-document.getElementById("region-search").addEventListener("keypress", function(event) {
+document.getElementById("region-search").addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
     highlightRegionFromInput();
   }
