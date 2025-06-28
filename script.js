@@ -112,7 +112,7 @@ Papa.parse(csvFilePath, {
     });
 
     // Add the Leaflet Search control for ski resorts
-    L.control.search({
+    const skiResortSearchControl = L.control.search({
       layer: markerLayer,
       propertyName: 'title', // Using marker option 'title' for search
       initial: false,
@@ -122,12 +122,18 @@ Papa.parse(csvFilePath, {
       marker: false
     }).addTo(map);
 
+    // Enable map interactions initially
+    map.dragging.enable();
+    map.scrollWheelZoom.enable();
+
     skiResortSearchControl.on('search:locationfound', function () {
       map.dragging.enable();
+      map.scrollWheelZoom.enable();
     });
 
     skiResortSearchControl.on('search:collapsed', function () {
       map.dragging.enable();
+      map.scrollWheelZoom.enable();
     });
   },
 
