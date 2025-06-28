@@ -1,62 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ski Resorts Map</title>
 
-    <link rel="stylesheet" href="style.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ski Resorts Map</title>
 
-    <!-- Leaflet CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
+  <link rel="stylesheet" href="style.css" />
 
-    <!-- Leaflet Control Search CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet-control-search@2.9.8/dist/leaflet-search.min.css"
-    />
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-    <!-- Leaflet JavaScript -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet Control Search CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-search@2.9.8/dist/leaflet-search.min.css" />
 
-    <!-- Leaflet Control Search JS -->
-    <script src="https://unpkg.com/leaflet-control-search@2.9.8/dist/leaflet-search.min.js"></script>
+  <!-- Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-    <!-- PapaParse JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-    <style>
-      #map {
-        height: 600px;
-        width: 90%;
-        margin: 0 auto; /* Ensures the map is centered horizontally */
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Where in the world has Zach skied?</h1>
-    <div id="map"></div>
+  <!-- Leaflet Control Search JS -->
+  <script src="https://unpkg.com/leaflet-control-search@2.9.8/dist/leaflet-search.min.js"></script>
 
-    <div id="resorts-table-container">
-      <h2>Resorts Table</h2>
-      <table id="resorts-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Resort</th>
-            <th>Location</th>
-            <th>Country</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Table rows will be populated here -->
-        </tbody>
-      </table>
-    </div>
+  <!-- Leaflet Control Geocoder CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
-    <!-- Your Custom JavaScript File -->
-    <script src="script.js"></script>
-  </body>
+  <!-- PapaParse JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <style>
+    #map {
+      height: 600px;
+      width: 90%;
+      margin: 0 auto;
+      /* Ensures the map is centered horizontally */
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Where in the world has Zach skied?</h1>
+  <div id="map"></div>
+
+  <div id="resorts-table-container">
+    <h2>Resorts Table</h2>
+    <table id="resorts-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Resort</th>
+          <th>Location</th>
+          <th>Country</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Table rows will be populated here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Your Custom JavaScript File -->
+  <script src="script.js"></script>
+</body>
+
 </html>

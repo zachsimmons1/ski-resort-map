@@ -71,32 +71,54 @@ Papa.parse(csvFilePath, {
       tableBody.appendChild(row);
     });
 
-    // Add search control to the map
+    // 1. Local ski resorts search control
     L.control
       .search({
         layer: markerLayer,
         zoom: 10,
         initial: false,
         hideMarkerOnCollapse: true,
-        textPlaceholder: 'Search resorts...',
+        textPlaceholder: 'Search ski resorts...',
         marker: false,
         moveToLocation: function (latlng, title, map) {
-          map.setView(latlng, 10); // Zoom to marker when found
-        },
-        buildTip: function (text, val) {
-          return `<span>${text}</span>`;
+          map.setView(latlng, 10);
         },
         sourceData: function (text, callback) {
-          // Create searchable list of markers
           const results = {};
           markerLayer.eachLayer(function (layer) {
-            const name = layer.getTooltip().getContent().split("<br>")[0].replace(/<[^>]+>/g, ""); // Clean HTML
+            const tooltip = layer.getTooltip();
+            if (!tooltip) return;
+            // Extract resort name from tooltip content (strip HTML tags)
+            const name = tooltip.getContent().split("<br>")[0].replace(/<[^>]+>/g, "");
             if (name.toLowerCase().includes(text.toLowerCase())) {
               results[name] = layer.getLatLng();
             }
           });
           callback(results);
         },
+      })
+      .addTo(map);
+
+    // 2. Global geocoder search (Nominatim)
+    L.Control.geocoder({
+      defaultMarkGeocode: false,
+      placeholder: 'Search any place on Earth...'
+    })
+      .on('markgeocode', function (e) {
+        const bbox = e.geocode.bbox;
+        if (bbox) {
+          const poly = L.polygon([
+            bbox.getSouthEast(),
+            bbox.getNorthEast(),
+            bbox.getNorthWest(),
+            bbox.getSouthWest(),
+          ]).addTo(map);
+          map.fitBounds(poly.getBounds());
+          // Optional: remove polygon after a timeout
+          setTimeout(() => map.removeLayer(poly), 5000);
+        } else if (e.geocode.center) {
+          map.setView(e.geocode.center, 12);
+        }
       })
       .addTo(map);
 
