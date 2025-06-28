@@ -74,7 +74,6 @@ Papa.parse(csvFilePath, {
     // 1. Local ski resorts search control
     L.control.search({
       layer: markerLayer,
-      propertyName: 'resortName', // This is your custom property
       initial: false,
       zoom: 10,
       hideMarkerOnCollapse: true,
@@ -83,6 +82,12 @@ Papa.parse(csvFilePath, {
       moveToLocation: function (latlng, title, map) {
         map.setView(latlng, 10);
       },
+      getLocation: function (layer) {
+        return {
+          title: layer.options.resortName,
+          loc: layer.getLatLng()
+        };
+      }
     }).addTo(map);
 
     // 2. Global geocoder search (Nominatim)
