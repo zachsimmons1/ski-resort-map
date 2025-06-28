@@ -80,7 +80,7 @@ h2 {
 
 /* Style the main Leaflet Search button */
 .leaflet-control-search .search-button {
-  background-image: url('search-icon.png');
+  background-image: url('./search_icon.png');
   background-size: 60% 60%;
   background-repeat: no-repeat;
   background-position: center;
@@ -96,7 +96,7 @@ h2 {
 /* Style the "cancel" (collapse) button too */
 .leaflet-control-search .search-cancel {
   background-color: white;
-  background-image: url('cancel-search-icon.png');
+  background-image: url('./cancel_search_icon.png');
   background-size: 60% 60%;
   background-repeat: no-repeat;
   background-position: center;
