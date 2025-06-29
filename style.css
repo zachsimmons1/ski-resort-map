@@ -74,6 +74,11 @@ h2 {
   font-size: 14px;
 }
 
+#style-controls label,
+#style-controls input {
+  margin: 0 0.5rem;
+}
+
 .leaflet-marker-icon.invisible-marker {
   display: none !important;
 }

@@ -37,6 +37,13 @@
   <input type="text" id="region-search" placeholder="Search for a region..." />
   <button id="region-search-btn">Search</button>
   <button id="clear-highlight-btn">Clear Highlight</button>
+  <div id="style-controls">
+    <label for="highlight-color">Highlight Color:</label>
+    <input type="color" id="highlight-color" value="#FF0000"> <!-- Red default -->
+
+    <label for="fill-opacity">Fill Opacity:</label>
+    <input type="range" id="fill-opacity" min="0" max="1" step="0.05" value="0.15">
+  </div>
   <div id="map"></div>
 
   <div id="resorts-table-container">

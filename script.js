@@ -5,6 +5,10 @@ let highlightedRegion = null;
 function highlightRegion(regionName) {
   const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(regionName)}&format=json&polygon_geojson=1`;
 
+  // Get user-defined styles
+  const highlightColor = document.getElementById("highlight-color").value;
+  const fillOpacity = parseFloat(document.getElementById("fill-opacity").value);
+
   fetch(url)
     .then(response => response.json())
     .then(data => {
@@ -18,13 +22,13 @@ function highlightRegion(regionName) {
         map.removeLayer(highlightedRegion);
       }
 
-      // Draw new region polygon with style
+      // Draw new region polygon
       highlightedRegion = L.geoJSON(data[0].geojson, {
         style: {
-          color: 'red',
+          color: highlightColor,       // Border color
           weight: 2,
-          fillColor: 'red',
-          fillOpacity: 0.15,
+          fillColor: highlightColor,   // Fill color same as border
+          fillOpacity: fillOpacity,
         }
       }).addTo(map);
 
