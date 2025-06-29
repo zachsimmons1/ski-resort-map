@@ -147,3 +147,56 @@ h2 {
   display: inline-block;
   text-indent: -9999px;
 }
+
+
+/* iOS-style toggle switch */
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 1rem;
+  font-size: 14px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider,
+.slider.round {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 34px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.slider::before,
+.slider.round::before {
+  content: "";
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+input:checked + .slider,
+input:checked + .slider.round {
+  background-color: #4caf50;
+}
+
+input:checked + .slider::before,
+input:checked + .slider.round::before {
+  transform: translateX(20px);
+}
+
+/* Optional label */
+.switch-label {
+  user-select: none;
+}

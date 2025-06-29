@@ -1,5 +1,7 @@
 // Global variable to hold the highlighted region polygon
 let highlightedRegion = null;
+let allResortMarkers = []; // Track markers so we can update them
+let showPermanentTooltips = true; // default state matches checkbox
 
 // Function to search for and highlight a geographic region using Nominatim
 function highlightRegion(regionName) {
@@ -154,11 +156,12 @@ Papa.parse(csvFilePath, {
         const marker = L.marker([parseFloat(Latitude), parseFloat(Longitude)], {
           title: Resort
         }).bindTooltip(`<strong>${Resort}</strong><br>${Location}, ${Country}`, {
-          permanent: false,
+          permanent: showPermanentTooltips,
           direction: "top",
         });
 
         marker.addTo(markerLayer);
+        allResortMarkers.push(marker); // Save marker for future tooltip updates
       }
 
       // Add table rows
@@ -213,6 +216,26 @@ Papa.parse(csvFilePath, {
 // Listen for changes on color and opacity inputs
 document.getElementById('highlight-color').addEventListener('input', updateRegionStyle);
 document.getElementById('fill-opacity').addEventListener('input', updateRegionStyle);
+
+document.getElementById('toggle-tooltips').addEventListener('change', function () {
+  showPermanentTooltips = this.checked;
+
+  allResortMarkers.forEach(marker => {
+    const tooltip = marker.getTooltip();
+    if (tooltip) {
+      marker.unbindTooltip();
+    }
+
+    // Rebind the tooltip with the updated permanent flag
+    const resortName = marker.options.title;
+    const popupHTML = tooltip.getContent(); // reuse the content
+
+    marker.bindTooltip(popupHTML, {
+      permanent: showPermanentTooltips,
+      direction: "top"
+    });
+  });
+});
 
 // Wire up search input & button to highlight region on click or Enter key
 document.getElementById("region-search-btn").addEventListener("click", highlightRegionFromInput);
