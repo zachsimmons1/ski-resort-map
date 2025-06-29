@@ -2,6 +2,7 @@
 html {
   box-sizing: border-box;
   font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 *,
@@ -72,6 +73,27 @@ h2 {
   margin: 10px;
   padding: 6px;
   font-size: 14px;
+}
+
+#search-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.scroll-link {
+  font-size: 14px;
+  text-decoration: underline;
+  color: #0077cc;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.scroll-link:hover {
+  color: #005fa3;
 }
 
 #style-controls label,
