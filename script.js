@@ -1,7 +1,7 @@
 // Global variable to hold the highlighted region polygon
 let highlightedRegion = null;
 let allResortMarkers = []; // Track markers so we can update them
-let showPermanentTooltips = true; // default state matches checkbox
+let showPermanentTooltips = false; // tooltips hidden by default
 
 // Function to search for and highlight a geographic region using Nominatim
 function highlightRegion(regionName) {
