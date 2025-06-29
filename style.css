@@ -60,7 +60,7 @@ h2 {
 #resorts-table th {
   position: sticky;
   top: 0;
-  background-color: #f4f4f4;
+  background-color: #a1a4a7;
   font-weight: bold;
   z-index: 1;
 }
@@ -89,6 +89,7 @@ h2 {
 
 #style-controls {
   margin-top: 0;
+  margin-bottom: 0.1rem;
   padding: 0;
 }
 
