@@ -130,6 +130,57 @@ L.control
   .addTo(map);
 
 
+// === Adding filters to the table ===
+function populateFilters(data) {
+  const resortSet = new Set();
+  const locationSet = new Set();
+  const countrySet = new Set();
+
+  data.forEach(resort => {
+    resortSet.add(resort.Resort);
+    locationSet.add(resort.Location);
+    countrySet.add(resort.Country);
+  });
+
+  function addOptions(selectElement, values) {
+    [...values].sort().forEach(value => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = value;
+      selectElement.appendChild(option);
+    });
+  }
+
+  addOptions(document.getElementById("filter-resort"), resortSet);
+  addOptions(document.getElementById("filter-location"), locationSet);
+  addOptions(document.getElementById("filter-country"), countrySet);
+}
+
+function filterTable() {
+  const resortVal = document.getElementById("filter-resort").value;
+  const locationVal = document.getElementById("filter-location").value;
+  const countryVal = document.getElementById("filter-country").value;
+
+  const rows = document.querySelectorAll("#resorts-table tbody tr");
+
+  rows.forEach(row => {
+    const [_, resortCell, locationCell, countryCell] = row.children;
+
+    const match =
+      (!resortVal || resortCell.textContent === resortVal) &&
+      (!locationVal || locationCell.textContent === locationVal) &&
+      (!countryVal || countryCell.textContent === countryVal);
+
+    row.style.display = match ? "" : "none";
+  });
+}
+
+// Attach listeners
+["filter-resort", "filter-location", "filter-country"].forEach(id => {
+  document.getElementById(id).addEventListener("change", filterTable);
+});
+
+
 // Load ski resorts from CSV and add markers + table rows
 const csvFilePath = "./Ski Resort List.csv";
 
@@ -203,6 +254,8 @@ Papa.parse(csvFilePath, {
       map.dragging.enable();
       map.scrollWheelZoom.enable();
     });
+
+    populateFilters(data);
   },
   error: function (error) {
     console.error("Error loading CSV:", error);
