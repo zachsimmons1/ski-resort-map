@@ -54,6 +54,9 @@ function clearRegionHighlight() {
     map.removeLayer(highlightedRegion);
     highlightedRegion = null;
   }
+
+  // Also clear the global search input box
+  document.getElementById("region-search").value = '';
 }
 
 // Function to update the style of the highlighted region
