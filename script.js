@@ -176,8 +176,8 @@ Papa.parse(csvFilePath, {
       // Add click event to zoom and scroll
       row.style.cursor = "pointer";  // show pointer cursor on hover
       row.addEventListener("click", () => {
-        // Scroll page to map smoothly
-        document.getElementById("map").scrollIntoView({ behavior: "smooth" });
+        // Scroll to the very top of the page smoothly
+        window.scrollTo({ top: 0, behavior: "smooth" });
 
         // Find the marker by resort name
         const targetMarker = allResortMarkers.find(m => m.options.title === Resort);
