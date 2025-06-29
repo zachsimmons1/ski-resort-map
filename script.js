@@ -167,11 +167,29 @@ Papa.parse(csvFilePath, {
       // Add table rows
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${Resort}</td>
-        <td>${Location}</td>
-        <td>${Country}</td>
-      `;
+    <td>${index + 1}</td>
+    <td>${Resort}</td>
+    <td>${Location}</td>
+    <td>${Country}</td>
+  `;
+
+      // Add click event to zoom and scroll
+      row.style.cursor = "pointer";  // show pointer cursor on hover
+      row.addEventListener("click", () => {
+        // Scroll page to map smoothly
+        document.getElementById("map").scrollIntoView({ behavior: "smooth" });
+
+        // Find the marker by resort name
+        const targetMarker = allResortMarkers.find(m => m.options.title === Resort);
+        if (targetMarker) {
+          // Zoom in and center on the marker (adjust zoom level as needed)
+          map.setView(targetMarker.getLatLng(), 10);
+
+          // Optionally open the tooltip
+          targetMarker.openTooltip();
+        }
+      });
+
       tableBody.appendChild(row);
     });
 
