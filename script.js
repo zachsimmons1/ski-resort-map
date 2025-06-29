@@ -21,10 +21,10 @@ function highlightRegion(regionName) {
       // Draw new region polygon with style
       highlightedRegion = L.geoJSON(data[0].geojson, {
         style: {
-          color: 'orange',
+          color: 'red',
           weight: 2,
-          fillColor: 'orange',
-          fillOpacity: 0.1,
+          fillColor: 'red',
+          fillOpacity: 0.15,
         }
       }).addTo(map);
 
